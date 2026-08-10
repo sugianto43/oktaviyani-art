@@ -2,13 +2,15 @@ import type { Metadata } from 'next'
 import { exhibitionService } from '@/features/exhibitions/services/exhibitionService'
 import { Container } from '@/components/layout'
 import { ExhibitionItem } from '@/components/exhibition'
+import { buildMetadata } from '@/lib/seo/metadata'
 
 export const dynamic = 'force-dynamic'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: 'Exhibitions',
   description: 'Solo and group exhibition history by Oktaviyani.',
-}
+  path: '/exhibitions',
+})
 
 export default async function ExhibitionsPage() {
   const exhibitions = await exhibitionService.list()

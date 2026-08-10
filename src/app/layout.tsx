@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Cormorant_Garamond, Inter } from 'next/font/google'
+import { siteName, siteUrl } from '@/lib/seo/site'
 import './globals.css'
 
 const cormorant = Cormorant_Garamond({
@@ -15,12 +16,27 @@ const inter = Inter({
   display: 'swap',
 })
 
+const description = 'Portfolio of contemporary paintings by Oktaviyani.'
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
-    default: 'Oktaviyani — Contemporary Painting',
+    default: siteName,
     template: '%s — Oktaviyani',
   },
-  description: 'Portfolio of contemporary paintings by Oktaviyani.',
+  description,
+  openGraph: {
+    title: siteName,
+    description,
+    url: siteUrl,
+    siteName,
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: siteName,
+    description,
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

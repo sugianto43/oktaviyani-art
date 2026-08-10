@@ -2,13 +2,15 @@ import type { Metadata } from 'next'
 import { Container } from '@/components/layout'
 import { ContactForm } from '@/features/contact/components/ContactForm'
 import { artistService } from '@/features/artist/services/artistService'
+import { buildMetadata } from '@/lib/seo/metadata'
 
 export const dynamic = 'force-dynamic'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: 'Contact',
   description: "Let's talk about art — inquiries, commissions, and collaborations.",
-}
+  path: '/contact',
+})
 
 interface ContactPageProps {
   searchParams: Promise<{ artwork?: string }>

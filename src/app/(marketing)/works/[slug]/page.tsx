@@ -5,6 +5,9 @@ import { artworkService } from '@/features/artworks/services/artworkService'
 import { Container } from '@/components/layout'
 import { ArtworkImage, ArtworkMetadata } from '@/components/artwork'
 import { Button } from '@/components/ui'
+import { buildMetadata } from '@/lib/seo/metadata'
+import { JsonLd } from '@/lib/seo/JsonLd'
+import { siteUrl } from '@/lib/seo/site'
 
 export const dynamic = 'force-dynamic'
 
@@ -16,10 +19,12 @@ export async function generateMetadata({ params }: ArtworkPageProps): Promise<Me
   const { slug } = await params
   const artwork = await artworkService.getBySlug(slug)
   if (!artwork) return { title: 'Not Found' }
-  return {
+  return buildMetadata({
     title: artwork.title,
     description: artwork.description,
-  }
+    path: `/works/${artwork.slug}`,
+    image: artwork.image.src,
+  })
 }
 
 export default async function ArtworkPage({ params }: ArtworkPageProps) {
@@ -28,8 +33,49 @@ export default async function ArtworkPage({ params }: ArtworkPageProps) {
 
   if (!artwork) notFound()
 
+  const AVAILABILITY_SCHEMA: Partial<Record<typeof artwork.status, string>> = {
+    available: 'https://schema.org/InStock',
+    sold: 'https://schema.org/SoldOut',
+  }
+  const availability = AVAILABILITY_SCHEMA[artwork.status]
+
   return (
     <section className="py-16 md:py-24">
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'VisualArtwork',
+          name: artwork.title,
+          image: artwork.image.src,
+          description: artwork.description,
+          dateCreated: String(artwork.year),
+          artMedium: artwork.medium,
+          artform: artwork.category,
+          creator: { '@type': 'Person', name: 'Oktaviyani' },
+          url: `${siteUrl}/works/${artwork.slug}`,
+          ...(availability
+            ? {
+                offers: { '@type': 'Offer', availability, url: `${siteUrl}/works/${artwork.slug}` },
+              }
+            : {}),
+        }}
+      />
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl },
+            { '@type': 'ListItem', position: 2, name: 'Works', item: `${siteUrl}/works` },
+            {
+              '@type': 'ListItem',
+              position: 3,
+              name: artwork.title,
+              item: `${siteUrl}/works/${artwork.slug}`,
+            },
+          ],
+        }}
+      />
       <Container>
         <Link
           href="/works"
