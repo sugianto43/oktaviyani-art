@@ -27,26 +27,26 @@ export function SelectedWorks({ artworks }: SelectedWorksProps) {
           </Link>
         </div>
 
-        {/* Asymmetric editorial grid */}
-        <div className="grid grid-cols-1 gap-x-8 gap-y-16 md:grid-cols-12">
+        {/* Asymmetric editorial grid — big/small alternates sides for a zigzag rhythm */}
+        <div className="grid grid-cols-1 gap-x-8 gap-y-20 md:grid-cols-12">
           {artworks[0] && (
-            <div className="md:col-span-7">
+            <div className="md:col-span-8">
               <ArtworkCard
                 artwork={artworks[0]}
-                sizes="(min-width: 1200px) 58vw, (min-width: 768px) 58vw, 100vw"
+                sizes="(min-width: 1200px) 66vw, (min-width: 768px) 66vw, 100vw"
               />
             </div>
           )}
           {artworks[1] && (
-            <div className="md:col-span-5 md:pt-24">
+            <div className="md:col-span-4 md:pt-28">
               <ArtworkCard
                 artwork={artworks[1]}
-                sizes="(min-width: 1200px) 41vw, (min-width: 768px) 41vw, 100vw"
+                sizes="(min-width: 1200px) 33vw, (min-width: 768px) 33vw, 100vw"
               />
             </div>
           )}
           {artworks[2] && (
-            <div className="md:col-span-4 md:col-start-2">
+            <div className="md:col-span-4 md:col-start-2 md:pt-12">
               <ArtworkCard
                 artwork={artworks[2]}
                 sizes="(min-width: 1200px) 33vw, (min-width: 768px) 33vw, 100vw"
@@ -54,10 +54,10 @@ export function SelectedWorks({ artworks }: SelectedWorksProps) {
             </div>
           )}
           {artworks[3] && (
-            <div className="md:col-span-6 md:col-start-7 md:pt-12">
+            <div className="md:col-span-7 md:col-start-6 md:pt-36">
               <ArtworkCard
                 artwork={artworks[3]}
-                sizes="(min-width: 1200px) 50vw, (min-width: 768px) 50vw, 100vw"
+                sizes="(min-width: 1200px) 58vw, (min-width: 768px) 58vw, 100vw"
               />
             </div>
           )}
