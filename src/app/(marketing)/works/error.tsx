@@ -5,10 +5,10 @@ import { Container } from '@/components/layout'
 
 export default function WorksError({
   error,
-  reset,
+  retry,
 }: {
   error: Error & { digest?: string }
-  reset: () => void
+  retry: () => void
 }) {
   useEffect(() => {
     console.error(error)
@@ -22,7 +22,7 @@ export default function WorksError({
             Something went wrong loading the works.
           </p>
           <button
-            onClick={reset}
+            onClick={retry}
             className="border border-[var(--color-fg)] px-6 py-3 font-sans text-xs tracking-widest uppercase transition-colors hover:bg-[var(--color-fg)] hover:text-[var(--color-bg)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-fg)]"
           >
             Try again
