@@ -5,6 +5,8 @@ import { Container } from '@/components/layout'
 import { GalleryFilter } from './_components/GalleryFilter'
 import { ArtworkGrid } from './_components/ArtworkGrid'
 
+export const dynamic = 'force-dynamic'
+
 const VALID_CATEGORIES: ArtworkCategory[] = ['painting', 'portrait', 'abstract', 'landscape']
 
 function parseCategory(raw: unknown): ArtworkCategory | 'all' {

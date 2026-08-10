@@ -1,8 +1,11 @@
 import type { Exhibition } from '@/types'
-import { mockExhibitions } from '@/lib/data/exhibitions'
+import { sanityClient } from '@/lib/sanity/client'
+import { exhibitionsQuery } from '@/lib/sanity/queries'
+import { exhibitionsSchema } from '../schemas/exhibitionSchema'
 
 export const exhibitionService = {
   async list(): Promise<Exhibition[]> {
-    return [...mockExhibitions].sort((a, b) => b.year - a.year)
+    const raw = await sanityClient.fetch(exhibitionsQuery)
+    return exhibitionsSchema.parse(raw)
   },
 }

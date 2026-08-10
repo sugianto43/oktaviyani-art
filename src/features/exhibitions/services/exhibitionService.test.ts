@@ -1,23 +1,55 @@
-import { describe, expect, it } from 'vitest'
-import { exhibitionService } from './exhibitionService'
-import { mockExhibitions } from '@/lib/data/exhibitions'
+import { describe, expect, it, vi } from 'vitest'
+
+const fetchMock = vi.fn()
+vi.mock('@/lib/sanity/client', () => ({
+  sanityClient: { fetch: fetchMock },
+}))
+
+const { exhibitionService } = await import('./exhibitionService')
+
+function rawExhibition(overrides: Partial<Record<string, unknown>> = {}) {
+  return {
+    id: 'abc123',
+    year: 2024,
+    title: 'Between Moments',
+    type: 'solo',
+    venue: 'Ruang Rupa Gallery',
+    location: 'Yogyakarta, Indonesia',
+    description: 'A solo exhibition.',
+    ...overrides,
+  }
+}
 
 describe('exhibitionService.list', () => {
-  it('returns all exhibitions', async () => {
+  it('maps and validates a list response', async () => {
+    fetchMock.mockResolvedValueOnce([rawExhibition()])
+
     const result = await exhibitionService.list()
-    expect(result).toHaveLength(mockExhibitions.length)
+
+    expect(result).toEqual([
+      {
+        id: 'abc123',
+        year: 2024,
+        title: 'Between Moments',
+        type: 'solo',
+        venue: 'Ruang Rupa Gallery',
+        location: 'Yogyakarta, Indonesia',
+        description: 'A solo exhibition.',
+      },
+    ])
   })
 
-  it('sorts exhibitions by year descending', async () => {
-    const result = await exhibitionService.list()
-    const years = result.map((exhibition) => exhibition.year)
-    expect(years).toEqual([...years].sort((a, b) => b - a))
+  it('normalizes a null description to undefined', async () => {
+    fetchMock.mockResolvedValueOnce([rawExhibition({ description: null })])
+
+    const [result] = await exhibitionService.list()
+
+    expect(result?.description).toBeUndefined()
   })
 
-  it('does not mutate the source mock data', async () => {
-    const before = mockExhibitions.map((exhibition) => exhibition.year)
-    await exhibitionService.list()
-    const after = mockExhibitions.map((exhibition) => exhibition.year)
-    expect(after).toEqual(before)
+  it('rejects a malformed response', async () => {
+    fetchMock.mockResolvedValueOnce([rawExhibition({ type: 'retrospective' })])
+
+    await expect(exhibitionService.list()).rejects.toThrow()
   })
 })

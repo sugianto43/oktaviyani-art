@@ -1,24 +1,36 @@
 import type { Artwork, ArtworkCategory } from '@/types'
-import { mockArtworks } from '@/lib/data/artworks'
+import { sanityClient } from '@/lib/sanity/client'
+import {
+  artworksQuery,
+  artworksByCategoryQuery,
+  artworkBySlugQuery,
+  featuredArtworksQuery,
+  heroArtworkQuery,
+} from '@/lib/sanity/queries'
+import { artworkSchema, artworksSchema } from '../schemas/artworkSchema'
 
 export const artworkService = {
   async list(category?: ArtworkCategory): Promise<Artwork[]> {
-    if (!category) return mockArtworks
-    return mockArtworks.filter((artwork) => artwork.category === category)
+    const raw = category
+      ? await sanityClient.fetch(artworksByCategoryQuery, { category })
+      : await sanityClient.fetch(artworksQuery)
+    return artworksSchema.parse(raw)
   },
 
   async getBySlug(slug: string): Promise<Artwork | null> {
-    return mockArtworks.find((artwork) => artwork.slug === slug) ?? null
+    const raw = await sanityClient.fetch(artworkBySlugQuery, { slug })
+    if (!raw) return null
+    return artworkSchema.parse(raw)
   },
 
-  async listFeatured(limit?: number): Promise<Artwork[]> {
-    const featured = mockArtworks.filter((artwork) => artwork.featured)
-    return limit ? featured.slice(0, limit) : featured
+  async listFeatured(limit = 100): Promise<Artwork[]> {
+    const raw = await sanityClient.fetch(featuredArtworksQuery, { limit })
+    return artworksSchema.parse(raw)
   },
 
   async getHero(): Promise<Artwork> {
-    const featured = mockArtworks.find((artwork) => artwork.featured)
-    // mockArtworks is a non-empty static fixture — safe fallback
-    return featured ?? mockArtworks[0]!
+    const raw =
+      (await sanityClient.fetch(heroArtworkQuery)) ?? (await sanityClient.fetch(artworksQuery))?.[0]
+    return artworkSchema.parse(raw)
   },
 }

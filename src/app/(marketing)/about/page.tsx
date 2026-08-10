@@ -4,6 +4,8 @@ import { artistService } from '@/features/artist/services/artistService'
 import { Container } from '@/components/layout'
 import { ArtistBio, ArtistStatement } from '@/components/artist'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'About',
   description: 'Biography and artist statement of Oktaviyani.',

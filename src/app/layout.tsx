@@ -1,7 +1,5 @@
 import type { Metadata } from 'next'
 import { Cormorant_Garamond, Inter } from 'next/font/google'
-import { Header } from '@/components/layout'
-import { Footer } from '@/components/layout'
 import './globals.css'
 
 const cormorant = Cormorant_Garamond({
@@ -29,9 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="id" className={`${cormorant.variable} ${inter.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-[var(--color-bg)] text-[var(--color-fg)] font-sans">
-        <Header />
-        <main className="flex flex-1 flex-col pt-[72px]">{children}</main>
-        <Footer />
+        {children}
       </body>
     </html>
   )

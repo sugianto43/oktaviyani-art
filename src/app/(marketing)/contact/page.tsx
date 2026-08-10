@@ -3,6 +3,8 @@ import { Container } from '@/components/layout'
 import { ContactForm } from '@/features/contact/components/ContactForm'
 import { artistService } from '@/features/artist/services/artistService'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Contact',
   description: "Let's talk about art — inquiries, commissions, and collaborations.",
