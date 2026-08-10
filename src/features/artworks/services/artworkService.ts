@@ -5,7 +5,7 @@ import {
   artworksByCategoryQuery,
   artworkBySlugQuery,
   featuredArtworksQuery,
-  heroArtworkQuery,
+  siteSettingsHeroQuery,
 } from '@/lib/sanity/queries'
 import { artworkSchema, artworksSchema } from '../schemas/artworkSchema'
 
@@ -30,7 +30,8 @@ export const artworkService = {
 
   async getHero(): Promise<Artwork> {
     const raw =
-      (await sanityClient.fetch(heroArtworkQuery)) ?? (await sanityClient.fetch(artworksQuery))?.[0]
+      (await sanityClient.fetch(siteSettingsHeroQuery)) ??
+      (await sanityClient.fetch(artworksQuery))?.[0]
     return artworkSchema.parse(raw)
   },
 }

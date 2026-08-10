@@ -30,7 +30,7 @@ export const artworkBySlugQuery = `*[_type == "artwork" && slug.current == $slug
 
 export const featuredArtworksQuery = `*[_type == "artwork" && featured == true] | order(year desc) [0...$limit] ${artworkProjection}`
 
-export const heroArtworkQuery = `*[_type == "artwork" && featured == true] | order(year desc) [0] ${artworkProjection}`
+export const siteSettingsHeroQuery = `*[_type == "siteSettings"][0].heroArtwork-> ${artworkProjection}`
 
 export const artistQuery = `*[_type == "artist"][0]{
   name,

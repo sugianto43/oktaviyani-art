@@ -56,6 +56,18 @@ async function seedArtworks() {
   }
 }
 
+async function seedSiteSettings() {
+  const heroArtwork = mockArtworks.find((artwork) => artwork.featured) ?? mockArtworks[0]
+  if (!heroArtwork) return
+
+  await client.createIfNotExists({
+    _id: 'siteSettings',
+    _type: 'siteSettings',
+    heroArtwork: { _type: 'reference', _ref: `artwork-${heroArtwork.slug}` },
+  })
+  console.info(`Seeded homepage settings (hero: ${heroArtwork.title})`)
+}
+
 async function seedExhibitions() {
   for (const exhibition of mockExhibitions) {
     await client.createOrReplace({
@@ -75,6 +87,7 @@ async function seedExhibitions() {
 async function main() {
   await seedArtist()
   await seedArtworks()
+  await seedSiteSettings()
   await seedExhibitions()
   console.info('Seed complete.')
 }

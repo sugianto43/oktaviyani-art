@@ -102,8 +102,17 @@ describe('artworkService.getBySlug', () => {
 })
 
 describe('artworkService.getHero', () => {
-  it('falls back to the first artwork when nothing is featured', async () => {
-    fetchMock.mockResolvedValueOnce(null).mockResolvedValueOnce([rawArtwork({ featured: false })])
+  it('uses the artwork referenced by siteSettings.heroArtwork when set', async () => {
+    fetchMock.mockResolvedValueOnce(rawArtwork({ slug: 'morning-light-ii' }))
+
+    const result = await artworkService.getHero()
+
+    expect(result.slug).toBe('morning-light-ii')
+    expect(fetchMock).toHaveBeenCalledTimes(1)
+  })
+
+  it('falls back to the latest artwork when no hero is configured', async () => {
+    fetchMock.mockResolvedValueOnce(null).mockResolvedValueOnce([rawArtwork()])
 
     const result = await artworkService.getHero()
 
