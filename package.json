@@ -23,10 +23,13 @@
     ]
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.7.1",
     "motion": "^13.0.0",
     "next": "16.3.0",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "react-hook-form": "^7.85.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
