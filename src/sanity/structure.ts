@@ -5,6 +5,9 @@ export const structure: StructureResolver = (S) =>
     .title('Content')
     .items([
       S.listItem()
+        .title('Homepage Settings')
+        .child(S.document().schemaType('siteSettings').documentId('siteSettings')),
+      S.listItem()
         .title('Artist Profile')
         .child(S.document().schemaType('artist').documentId('artist')),
       S.divider(),
