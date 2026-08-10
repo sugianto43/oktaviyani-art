@@ -3,6 +3,8 @@ import { exhibitionService } from '@/features/exhibitions/services/exhibitionSer
 import { Container } from '@/components/layout'
 import { ExhibitionItem } from '@/components/exhibition'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Exhibitions',
   description: 'Solo and group exhibition history by Oktaviyani.',

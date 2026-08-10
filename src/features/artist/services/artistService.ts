@@ -1,8 +1,11 @@
 import type { Artist } from '@/types'
-import { mockArtist } from '@/lib/data/artworks'
+import { sanityClient } from '@/lib/sanity/client'
+import { artistQuery } from '@/lib/sanity/queries'
+import { artistSchema } from '../schemas/artistSchema'
 
 export const artistService = {
   async get(): Promise<Artist> {
-    return mockArtist
+    const raw = await sanityClient.fetch(artistQuery)
+    return artistSchema.parse(raw)
   },
 }

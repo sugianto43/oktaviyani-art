@@ -5,6 +5,8 @@ import { artworkService } from '@/features/artworks/services/artworkService'
 import { Container } from '@/components/layout'
 import { ArtworkImage, ArtworkMetadata } from '@/components/artwork'
 
+export const dynamic = 'force-dynamic'
+
 interface ArtworkPageProps {
   params: Promise<{ slug: string }>
 }

@@ -25,6 +25,10 @@ const SECURITY_HEADERS = [
 ]
 
 const nextConfig: NextConfig = {
+  // Sanity Studio (embedded at /studio) pulls in `swr`, whose react-server
+  // export condition trips Next's RSC bundling. Run it via native require
+  // instead of bundling through the Server Components graph.
+  serverExternalPackages: ['sanity'],
   async headers() {
     return [
       {
@@ -39,6 +43,10 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'placehold.co',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.sanity.io',
       },
     ],
     // placehold.co serves SVG; sandbox it via CSP since it's dev-only

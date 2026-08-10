@@ -4,12 +4,12 @@ import { ArtistStatement } from './_components/ArtistStatement'
 import { artworkService } from '@/features/artworks/services/artworkService'
 import { artistService } from '@/features/artist/services/artistService'
 
+export const dynamic = 'force-dynamic'
+
 export default async function HomePage() {
-  const [heroArtwork, featuredWorks, artist] = await Promise.all([
-    artworkService.getHero(),
-    artworkService.listFeatured(4),
-    artistService.get(),
-  ])
+  const heroArtwork = await artworkService.getHero()
+  const featuredWorks = await artworkService.listFeatured(4)
+  const artist = await artistService.get()
 
   return (
     <>
