@@ -1,0 +1,1 @@
+export { ExhibitionItem } from './ExhibitionItem'
