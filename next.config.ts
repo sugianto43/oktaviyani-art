@@ -9,6 +9,10 @@ const nextConfig: NextConfig = {
         hostname: 'placehold.co',
       },
     ],
+    // placehold.co serves SVG; sandbox it via CSP since it's dev-only
+    dangerouslyAllowSVG: true,
+    contentDispositionType: 'attachment',
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 }
 
