@@ -59,7 +59,7 @@ export function HeroSection({ artwork }: HeroSectionProps) {
           <p className="font-sans text-xs tracking-widest uppercase text-white/70 mb-2">
             Featured Work
           </p>
-          <h1 className="font-serif text-4xl md:text-6xl font-light text-white mb-1">
+          <h1 className="font-serif text-6xl md:text-8xl font-light tracking-tight text-white mb-2">
             {artwork.title}
           </h1>
           <p className="font-sans text-sm text-white/70">

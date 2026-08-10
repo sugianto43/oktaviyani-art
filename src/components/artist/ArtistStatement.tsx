@@ -11,7 +11,7 @@ export function ArtistStatement({ artist }: ArtistStatementProps) {
         Artist Statement
       </p>
       <blockquote>
-        <p className="font-serif text-2xl font-light leading-relaxed tracking-tight md:text-3xl">
+        <p className="font-serif text-3xl font-light leading-relaxed tracking-tight md:text-5xl">
           &ldquo;{artist.statement}&rdquo;
         </p>
       </blockquote>

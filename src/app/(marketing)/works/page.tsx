@@ -56,7 +56,7 @@ export default async function WorksPage({ searchParams }: WorksPageProps) {
         <div className="mb-12 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <h1
             id="works-heading"
-            className="font-serif text-4xl font-light tracking-tight md:text-5xl"
+            className="font-serif text-5xl font-light tracking-tight md:text-7xl"
           >
             Works
           </h1>

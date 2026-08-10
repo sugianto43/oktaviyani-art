@@ -20,7 +20,7 @@ export function ArtistStatement({ artist }: ArtistStatementProps) {
           <blockquote>
             <p
               id="statement-heading"
-              className="font-serif text-2xl md:text-3xl font-light leading-relaxed tracking-tight text-[var(--color-fg)]"
+              className="font-serif text-3xl md:text-5xl font-light leading-relaxed tracking-tight text-[var(--color-fg)]"
             >
               &ldquo;{artist.statement}&rdquo;
             </p>
