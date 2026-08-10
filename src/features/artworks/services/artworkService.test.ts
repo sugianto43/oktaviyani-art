@@ -22,6 +22,7 @@ function rawArtwork(overrides: Partial<Record<string, unknown>> = {}) {
         metadata: {
           dimensions: { width: 1200, height: 1600 },
           lqip: 'data:image/jpeg;base64,abc',
+          palette: { dominant: { background: '#a1b2c3' } },
         },
       },
     },
@@ -56,6 +57,7 @@ describe('artworkService.list', () => {
         description: 'A meditation on stillness.',
         status: 'available',
         featured: true,
+        accentColor: '#a1b2c3',
       },
     ])
   })
@@ -72,6 +74,16 @@ describe('artworkService.list', () => {
     fetchMock.mockResolvedValueOnce([rawArtwork({ category: 'not-a-real-category' })])
 
     await expect(artworkService.list()).rejects.toThrow()
+  })
+
+  it('leaves accentColor undefined when the asset has no palette', async () => {
+    const raw = rawArtwork()
+    delete (raw.image.asset.metadata as Record<string, unknown>).palette
+    fetchMock.mockResolvedValueOnce([raw])
+
+    const [result] = await artworkService.list()
+
+    expect(result?.accentColor).toBeUndefined()
   })
 })
 

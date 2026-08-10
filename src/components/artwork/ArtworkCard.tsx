@@ -13,6 +13,11 @@ export function ArtworkCard({ artwork, sizes }: ArtworkCardProps) {
       href={`/works/${artwork.slug}`}
       className="group block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-fg)]"
       aria-label={`${artwork.title}, ${artwork.medium}, ${artwork.year}`}
+      style={
+        artwork.accentColor
+          ? ({ '--artwork-accent': artwork.accentColor } as React.CSSProperties)
+          : undefined
+      }
     >
       <div className="overflow-hidden">
         <div className="transition-transform duration-500 ease-out group-hover:scale-[1.03]">
@@ -25,7 +30,9 @@ export function ArtworkCard({ artwork, sizes }: ArtworkCardProps) {
       </div>
 
       <div className="mt-4 space-y-1">
-        <h3 className="font-serif text-lg font-light tracking-tight">{artwork.title}</h3>
+        <h3 className="inline-block border-b-2 border-transparent font-serif text-lg font-light tracking-tight transition-colors duration-300 group-hover:border-[var(--artwork-accent,var(--color-fg))]">
+          {artwork.title}
+        </h3>
         <p className="font-sans text-sm text-[var(--color-muted-fg)]">{artwork.medium}</p>
         <p className="font-sans text-sm text-[var(--color-muted-fg)]">{artwork.year}</p>
       </div>

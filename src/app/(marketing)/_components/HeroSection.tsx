@@ -80,7 +80,12 @@ export function HeroSection({ artwork }: HeroSectionProps) {
         </p>
         <Link
           href="/works"
-          className="font-sans text-xs tracking-widest uppercase border-b border-[var(--color-fg)] pb-0.5 hover:opacity-60 transition-opacity focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-fg)]"
+          style={
+            artwork.accentColor
+              ? ({ '--artwork-accent': artwork.accentColor } as React.CSSProperties)
+              : undefined
+          }
+          className="font-sans text-xs tracking-widest uppercase border-b border-[var(--artwork-accent,var(--color-fg))] pb-0.5 hover:opacity-60 transition-opacity focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-fg)]"
         >
           View All Works
         </Link>
