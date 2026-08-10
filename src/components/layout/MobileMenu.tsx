@@ -11,12 +11,34 @@ const NAV_LINKS = [
 
 export function MobileMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const firstLinkRef = useRef<HTMLAnchorElement>(null)
+  const dialogRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (!isOpen) return
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
+      if (e.key === 'Escape') {
+        onClose()
+        return
+      }
+
+      if (e.key !== 'Tab') return
+
+      const focusable = dialogRef.current?.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled])',
+      )
+      if (!focusable || focusable.length === 0) return
+
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault()
+        last?.focus()
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault()
+        first?.focus()
+      }
     }
 
     document.addEventListener('keydown', handleKeyDown)
@@ -33,6 +55,7 @@ export function MobileMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () =
 
   return (
     <div
+      ref={dialogRef}
       role="dialog"
       aria-modal="true"
       aria-label="Navigation menu"

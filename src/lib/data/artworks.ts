@@ -83,6 +83,3 @@ export const mockArtist: Artist = {
   email: 'hello@oktaviyani.art',
   instagram: 'https://instagram.com/oktaviyani.art',
 }
-
-// mockArtworks always has items — safe assertion
-export const heroArtwork = (mockArtworks.find((a) => a.featured) ?? mockArtworks[0])!

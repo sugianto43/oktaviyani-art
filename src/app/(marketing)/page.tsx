@@ -1,16 +1,21 @@
 import { HeroSection } from './_components/HeroSection'
 import { SelectedWorks } from './_components/SelectedWorks'
 import { ArtistStatement } from './_components/ArtistStatement'
-import { heroArtwork, mockArtworks, mockArtist } from '@/lib/data/artworks'
+import { artworkService } from '@/features/artworks/services/artworkService'
+import { artistService } from '@/features/artist/services/artistService'
 
-const featuredWorks = mockArtworks.filter((a) => a.featured).slice(0, 4)
+export default async function HomePage() {
+  const [heroArtwork, featuredWorks, artist] = await Promise.all([
+    artworkService.getHero(),
+    artworkService.listFeatured(4),
+    artistService.get(),
+  ])
 
-export default function HomePage() {
   return (
     <>
       <HeroSection artwork={heroArtwork} />
       <SelectedWorks artworks={featuredWorks} />
-      <ArtistStatement artist={mockArtist} />
+      <ArtistStatement artist={artist} />
     </>
   )
 }

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Container } from '@/components/layout'
 import { ContactForm } from '@/features/contact/components/ContactForm'
-import { mockArtist } from '@/lib/data/artworks'
+import { artistService } from '@/features/artist/services/artistService'
 
 export const metadata: Metadata = {
   title: 'Contact',
@@ -13,7 +13,7 @@ interface ContactPageProps {
 }
 
 export default async function ContactPage({ searchParams }: ContactPageProps) {
-  const { artwork } = await searchParams
+  const [{ artwork }, artist] = await Promise.all([searchParams, artistService.get()])
 
   return (
     <section className="py-16 md:py-24">
@@ -28,15 +28,15 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
             </p>
 
             <a
-              href={`mailto:${mockArtist.email}`}
+              href={`mailto:${artist.email}`}
               className="mt-8 inline-block font-sans text-sm text-[var(--color-fg)] underline decoration-[var(--color-border-default)] underline-offset-4 hover:decoration-[var(--color-fg)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-fg)]"
             >
-              {mockArtist.email}
+              {artist.email}
             </a>
 
             <div className="mt-10 flex gap-6 font-sans text-xs tracking-widest uppercase">
               <a
-                href={mockArtist.instagram}
+                href={artist.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[var(--color-muted-fg)] transition-colors hover:text-[var(--color-fg)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-fg)]"
@@ -44,7 +44,7 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
                 Instagram
               </a>
               <a
-                href={`mailto:${mockArtist.email}`}
+                href={`mailto:${artist.email}`}
                 className="text-[var(--color-muted-fg)] transition-colors hover:text-[var(--color-fg)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-fg)]"
               >
                 Email
