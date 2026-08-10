@@ -3,12 +3,20 @@ import Link from 'next/link'
 import { artistService } from '@/features/artist/services/artistService'
 import { Container } from '@/components/layout'
 import { ArtistBio, ArtistStatement } from '@/components/artist'
+import { buildMetadata } from '@/lib/seo/metadata'
+import { JsonLd } from '@/lib/seo/JsonLd'
+import { siteUrl } from '@/lib/seo/site'
 
 export const dynamic = 'force-dynamic'
 
-export const metadata: Metadata = {
-  title: 'About',
-  description: 'Biography and artist statement of Oktaviyani.',
+export async function generateMetadata(): Promise<Metadata> {
+  const artist = await artistService.get()
+  return buildMetadata({
+    title: 'About',
+    description: 'Biography and artist statement of Oktaviyani.',
+    path: '/about',
+    image: artist.portrait,
+  })
 }
 
 export default async function AboutPage() {
@@ -16,6 +24,20 @@ export default async function AboutPage() {
 
   return (
     <section className="py-16 md:py-24">
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'Person',
+          name: artist.name,
+          description: artist.biography,
+          image: artist.portrait,
+          url: `${siteUrl}/about`,
+          jobTitle: 'Painter',
+          address: artist.location,
+          email: artist.email,
+          sameAs: [artist.instagram],
+        }}
+      />
       <Container>
         <ArtistBio artist={artist} />
 
