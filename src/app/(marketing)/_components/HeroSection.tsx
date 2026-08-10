@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'motion/react'
+import { motion, useReducedMotion } from 'motion/react'
 import Link from 'next/link'
 import Image from 'next/image'
 import type { Artwork } from '@/types'
@@ -10,6 +10,8 @@ interface HeroSectionProps {
 }
 
 export function HeroSection({ artwork }: HeroSectionProps) {
+  const reduceMotion = useReducedMotion()
+
   return (
     <section aria-label="Featured artwork" className="relative flex min-h-[90svh] flex-col">
       {/* Full-bleed image */}
@@ -18,13 +20,13 @@ export function HeroSection({ artwork }: HeroSectionProps) {
           className="absolute inset-0"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.9, ease: 'easeOut' }}
+          transition={{ duration: reduceMotion ? 0 : 0.9, ease: 'easeOut' }}
         >
           <motion.div
             className="h-full w-full"
-            initial={{ scale: 1.04 }}
+            initial={{ scale: reduceMotion ? 1 : 1.04 }}
             animate={{ scale: 1 }}
-            transition={{ duration: 1.1, ease: 'easeOut' }}
+            transition={{ duration: reduceMotion ? 0 : 1.1, ease: 'easeOut' }}
           >
             <Image
               src={artwork.image.src}
@@ -46,9 +48,13 @@ export function HeroSection({ artwork }: HeroSectionProps) {
         {/* Artwork info */}
         <motion.div
           className="absolute bottom-0 left-0 right-0 p-8 md:p-14"
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: reduceMotion ? 0 : 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.6, ease: 'easeOut' }}
+          transition={{
+            duration: reduceMotion ? 0 : 0.7,
+            delay: reduceMotion ? 0 : 0.6,
+            ease: 'easeOut',
+          }}
         >
           <p className="font-sans text-xs tracking-widest uppercase text-white/70 mb-2">
             Featured Work
@@ -67,7 +73,7 @@ export function HeroSection({ artwork }: HeroSectionProps) {
         className="flex items-center justify-between px-8 md:px-14 py-6 border-t border-[var(--color-border-default)]"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.9 }}
+        transition={{ duration: reduceMotion ? 0 : 0.6, delay: reduceMotion ? 0 : 0.9 }}
       >
         <p className="font-sans text-xs tracking-widest uppercase text-[var(--color-muted-fg)]">
           Oktaviyani — Contemporary Painting
