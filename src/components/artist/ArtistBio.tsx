@@ -19,7 +19,7 @@ export function ArtistBio({ artist }: ArtistBioProps) {
       </div>
 
       <div className="max-w-md">
-        <h1 className="font-serif text-4xl font-light tracking-tight md:text-5xl">{artist.name}</h1>
+        <h1 className="font-serif text-5xl font-light tracking-tight md:text-7xl">{artist.name}</h1>
         <p className="mt-2 font-sans text-sm text-[var(--color-muted-fg)]">{artist.location}</p>
 
         <p className="mt-8 font-sans text-sm leading-relaxed text-[var(--color-muted-fg)]">

@@ -20,7 +20,7 @@ export default async function ExhibitionsPage() {
       <Container>
         <h1
           id="exhibitions-heading"
-          className="mb-12 font-serif text-4xl font-light tracking-tight md:text-5xl"
+          className="mb-12 font-serif text-5xl font-light tracking-tight md:text-7xl"
         >
           Exhibitions
         </h1>

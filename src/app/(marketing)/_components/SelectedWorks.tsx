@@ -15,7 +15,7 @@ export function SelectedWorks({ artworks }: SelectedWorksProps) {
         <div className="flex items-end justify-between mb-14">
           <h2
             id="selected-works-heading"
-            className="font-serif text-3xl md:text-4xl font-light tracking-tight"
+            className="font-serif text-4xl md:text-5xl font-light tracking-tight"
           >
             Selected Works
           </h2>

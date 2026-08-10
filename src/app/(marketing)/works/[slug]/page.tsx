@@ -95,7 +95,7 @@ export default async function ArtworkPage({ params }: ArtworkPageProps) {
           </ArtworkLightbox>
 
           <div className="max-w-md">
-            <h1 className="font-serif text-3xl font-light tracking-tight md:text-4xl">
+            <h1 className="font-serif text-4xl font-light tracking-tight md:text-6xl">
               {artwork.title}
             </h1>
             <p className="mt-2 font-sans text-sm text-[var(--color-muted-fg)]">

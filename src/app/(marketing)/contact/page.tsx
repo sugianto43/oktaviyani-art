@@ -24,7 +24,7 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
       <Container>
         <div className="grid gap-12 md:grid-cols-2 md:gap-20">
           <div>
-            <h1 className="font-serif text-4xl font-light tracking-tight md:text-5xl">
+            <h1 className="font-serif text-5xl font-light tracking-tight md:text-7xl">
               Let&apos;s Talk About Art
             </h1>
             <p className="mt-4 max-w-sm font-sans text-sm leading-relaxed text-[var(--color-muted-fg)]">
