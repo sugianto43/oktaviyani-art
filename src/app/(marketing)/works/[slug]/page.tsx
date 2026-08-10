@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { artworkService } from '@/features/artworks/services/artworkService'
 import { Container } from '@/components/layout'
 import { ArtworkImage, ArtworkMetadata } from '@/components/artwork'
+import { Button } from '@/components/ui'
 
 export const dynamic = 'force-dynamic'
 
@@ -59,12 +60,9 @@ export default async function ArtworkPage({ params }: ArtworkPageProps) {
               {artwork.description}
             </p>
 
-            <Link
-              href={`/contact?artwork=${artwork.slug}`}
-              className="mt-10 inline-block border border-[var(--color-fg)] px-6 py-3 font-sans text-xs tracking-widest uppercase transition-colors hover:bg-[var(--color-fg)] hover:text-[var(--color-bg)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-fg)]"
-            >
+            <Button href={`/contact?artwork=${artwork.slug}`} className="mt-10 inline-block">
               Inquire
-            </Link>
+            </Button>
           </div>
         </div>
       </Container>

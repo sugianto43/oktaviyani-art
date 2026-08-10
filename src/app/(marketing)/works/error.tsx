@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react'
 import { Container } from '@/components/layout'
+import { Button } from '@/components/ui'
 
 export default function WorksError({
   error,
@@ -21,12 +22,7 @@ export default function WorksError({
           <p className="font-sans text-sm text-[var(--color-muted-fg)]">
             Something went wrong loading the works.
           </p>
-          <button
-            onClick={retry}
-            className="border border-[var(--color-fg)] px-6 py-3 font-sans text-xs tracking-widest uppercase transition-colors hover:bg-[var(--color-fg)] hover:text-[var(--color-bg)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-fg)]"
-          >
-            Try again
-          </button>
+          <Button onClick={retry}>Try again</Button>
         </div>
       </Container>
     </section>

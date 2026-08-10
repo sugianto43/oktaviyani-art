@@ -1,6 +1,7 @@
 'use client'
 
 import { useContactForm } from '../hooks/useContactForm'
+import { Button } from '@/components/ui'
 
 interface ContactFormProps {
   defaultArtworkReference?: string
@@ -132,13 +133,9 @@ export function ContactForm({ defaultArtworkReference }: ContactFormProps) {
         </p>
       ) : null}
 
-      <button
-        type="submit"
-        disabled={state === 'loading'}
-        className="border border-[var(--color-fg)] px-6 py-3 font-sans text-xs tracking-widest uppercase transition-colors hover:bg-[var(--color-fg)] hover:text-[var(--color-bg)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-fg)] disabled:cursor-not-allowed disabled:opacity-50"
-      >
+      <Button type="submit" disabled={state === 'loading'}>
         {state === 'loading' ? 'Sending…' : 'Send an Inquiry'}
-      </button>
+      </Button>
     </form>
   )
 }

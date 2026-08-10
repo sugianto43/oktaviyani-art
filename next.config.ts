@@ -14,6 +14,8 @@ const CSP = [
   "form-action 'self'",
 ].join('; ')
 
+const PERMISSIONS_POLICY = 'camera=(), microphone=(), geolocation=()'
+
 const SECURITY_HEADERS = [
   { key: 'Content-Security-Policy', value: CSP },
   {
@@ -22,6 +24,7 @@ const SECURITY_HEADERS = [
   },
   { key: 'X-Content-Type-Options', value: 'nosniff' },
   { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+  { key: 'Permissions-Policy', value: PERMISSIONS_POLICY },
 ]
 
 // Studio needs to talk to Sanity's API/CDN/websocket hosts, which the
@@ -46,6 +49,7 @@ const STUDIO_SECURITY_HEADERS = [
   },
   { key: 'X-Content-Type-Options', value: 'nosniff' },
   { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+  { key: 'Permissions-Policy', value: PERMISSIONS_POLICY },
 ]
 
 const nextConfig: NextConfig = {
