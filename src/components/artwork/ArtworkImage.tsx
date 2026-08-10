@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'motion/react'
+import { motion, useReducedMotion } from 'motion/react'
 import Image from 'next/image'
 import type { ArtworkImage as ArtworkImageType } from '@/types'
 
@@ -19,17 +19,19 @@ export function ArtworkImage({
   className = '',
   sizes = '100vw',
 }: ArtworkImageProps) {
+  const reduceMotion = useReducedMotion()
+
   return (
     <motion.div
       className={`overflow-hidden ${className}`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.8, ease: 'easeOut' }}
+      transition={{ duration: reduceMotion ? 0 : 0.8, ease: 'easeOut' }}
     >
       <motion.div
-        initial={{ scale: 1.04 }}
+        initial={{ scale: reduceMotion ? 1 : 1.04 }}
         animate={{ scale: 1 }}
-        transition={{ duration: 0.9, ease: 'easeOut' }}
+        transition={{ duration: reduceMotion ? 0 : 0.9, ease: 'easeOut' }}
       >
         <Image
           src={image.src}
