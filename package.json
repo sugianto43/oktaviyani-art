@@ -9,7 +9,7 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "seed": "tsx scripts/seed-sanity.ts",
+    "seed": "tsx --env-file=.env.local scripts/seed-sanity.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "prepare": "husky"
