@@ -1,3 +1,5 @@
+@AGENTS.md
+
 # CLAUDE.md — Oktaviyani Art Portfolio
 
 Artist painting portfolio website. Digital art gallery. Artwork is the main character — UI disappears.
@@ -8,17 +10,17 @@ Full spec: `PRD.md`.
 
 ## Tech Stack
 
-| Layer | Tool |
-|---|---|
-| Framework | Next.js App Router |
-| Language | TypeScript (strict) |
-| Styling | Tailwind CSS |
-| Forms | React Hook Form + Zod |
-| Server state | TanStack Query (only if needed) |
-| Client state | Zustand (only if truly shared) |
-| Testing | Vitest + React Testing Library + Playwright |
-| Package manager | pnpm |
-| Deploy | Vercel |
+| Layer           | Tool                                        |
+| --------------- | ------------------------------------------- |
+| Framework       | Next.js App Router                          |
+| Language        | TypeScript (strict)                         |
+| Styling         | Tailwind CSS                                |
+| Forms           | React Hook Form + Zod                       |
+| Server state    | TanStack Query (only if needed)             |
+| Client state    | Zustand (only if truly shared)              |
+| Testing         | Vitest + React Testing Library + Playwright |
+| Package manager | pnpm                                        |
+| Deploy          | Vercel                                      |
 
 ---
 
@@ -29,6 +31,7 @@ Full spec: `PRD.md`.
 Default: **Server Component**.
 
 Use `'use client'` only for:
+
 - Gallery filter
 - Mobile navigation
 - Animations (Framer Motion)
@@ -46,17 +49,24 @@ UI → Feature Hook → Query/Service → API Client → Backend/CMS
 ```
 
 **Bad:**
+
 ```tsx
 function WorksPage() {
-  useEffect(() => { fetch('/api/artworks') }, [])
+  useEffect(() => {
+    fetch('/api/artworks')
+  }, [])
 }
 ```
 
 **Good:**
+
 ```tsx
 // src/features/artworks/hooks/useArtworks.ts
 export function useArtworks(category?: ArtworkCategory) {
-  return useQuery({ queryKey: ['artworks', category], queryFn: () => artworkService.list(category) })
+  return useQuery({
+    queryKey: ['artworks', category],
+    queryFn: () => artworkService.list(category),
+  })
 }
 ```
 
@@ -163,11 +173,13 @@ interface Artist {
 - Validate all external data with Zod before using
 
 **Bad:**
+
 ```typescript
 const artwork: any = response.data
 ```
 
 **Good:**
+
 ```typescript
 const artwork: Artwork = artworkSchema.parse(response.data)
 ```
@@ -247,15 +259,15 @@ States required: loading / success / error / prevent duplicate submit.
 
 ## Performance Targets
 
-| Metric | Target |
-|---|---|
-| LCP | < 2.5s |
-| INP | < 200ms |
-| CLS | < 0.1 |
-| Lighthouse Performance | ≥ 90 |
-| Lighthouse Accessibility | ≥ 95 |
-| Lighthouse SEO | ≥ 95 |
-| Initial JS bundle | < 200KB gzip |
+| Metric                   | Target       |
+| ------------------------ | ------------ |
+| LCP                      | < 2.5s       |
+| INP                      | < 200ms      |
+| CLS                      | < 0.1        |
+| Lighthouse Performance   | ≥ 90         |
+| Lighthouse Accessibility | ≥ 95         |
+| Lighthouse SEO           | ≥ 95         |
+| Initial JS bundle        | < 200KB gzip |
 
 ---
 
@@ -283,6 +295,7 @@ chore: update dependencies
 ```
 
 Branch naming:
+
 ```
 feature/artwork-gallery
 fix/mobile-navigation
