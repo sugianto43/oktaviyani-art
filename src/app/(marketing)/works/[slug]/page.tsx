@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { artworkService } from '@/features/artworks/services/artworkService'
 import { Container } from '@/components/layout'
-import { ArtworkImage } from '@/components/artwork'
+import { ArtworkImage, ArtworkMetadata } from '@/components/artwork'
 
 interface ArtworkPageProps {
   params: Promise<{ slug: string }>
@@ -17,12 +17,6 @@ export async function generateMetadata({ params }: ArtworkPageProps): Promise<Me
     title: artwork.title,
     description: artwork.description,
   }
-}
-
-const STATUS_LABEL: Record<string, string> = {
-  available: 'Available',
-  sold: 'Sold',
-  'not-for-sale': 'Not for Sale',
 }
 
 export default async function ArtworkPage({ params }: ArtworkPageProps) {
@@ -57,20 +51,7 @@ export default async function ArtworkPage({ params }: ArtworkPageProps) {
               {artwork.medium}, {artwork.year}
             </p>
 
-            <dl className="mt-8 space-y-3 border-t border-[var(--color-border-default)] pt-6 font-sans text-sm">
-              <div className="flex justify-between">
-                <dt className="text-[var(--color-muted-fg)]">Dimensions</dt>
-                <dd>{artwork.dimensions}</dd>
-              </div>
-              <div className="flex justify-between">
-                <dt className="text-[var(--color-muted-fg)]">Category</dt>
-                <dd className="capitalize">{artwork.category}</dd>
-              </div>
-              <div className="flex justify-between">
-                <dt className="text-[var(--color-muted-fg)]">Status</dt>
-                <dd>{STATUS_LABEL[artwork.status]}</dd>
-              </div>
-            </dl>
+            <ArtworkMetadata artwork={artwork} />
 
             <p className="mt-8 font-sans text-sm leading-relaxed text-[var(--color-muted-fg)]">
               {artwork.description}
