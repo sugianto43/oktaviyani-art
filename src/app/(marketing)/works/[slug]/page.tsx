@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { artworkService } from '@/features/artworks/services/artworkService'
 import { Container } from '@/components/layout'
-import { ArtworkImage, ArtworkMetadata } from '@/components/artwork'
+import { ArtworkImage, ArtworkLightbox, ArtworkMetadata } from '@/components/artwork'
 import { Button } from '@/components/ui'
 import { buildMetadata } from '@/lib/seo/metadata'
 import { JsonLd } from '@/lib/seo/JsonLd'
@@ -85,12 +85,14 @@ export default async function ArtworkPage({ params }: ArtworkPageProps) {
         </Link>
 
         <div className="grid gap-10 md:grid-cols-2 md:gap-16">
-          <ArtworkImage
-            image={artwork.image}
-            alt={artwork.title}
-            priority
-            sizes="(min-width: 768px) 50vw, 100vw"
-          />
+          <ArtworkLightbox image={artwork.image} alt={artwork.title}>
+            <ArtworkImage
+              image={artwork.image}
+              alt={artwork.title}
+              priority
+              sizes="(min-width: 768px) 50vw, 100vw"
+            />
+          </ArtworkLightbox>
 
           <div className="max-w-md">
             <h1 className="font-serif text-3xl font-light tracking-tight md:text-4xl">

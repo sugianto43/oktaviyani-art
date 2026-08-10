@@ -29,6 +29,22 @@ body {
   color: var(--color-fg);
 }
 
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --color-bg: #17140f;
+    --color-fg: #f0ece2;
+    --color-muted-fg: #a39c8f;
+    --color-border-default: #3a352c;
+  }
+}
+
+:root[data-theme='dark'] {
+  --color-bg: #17140f;
+  --color-fg: #f0ece2;
+  --color-muted-fg: #a39c8f;
+  --color-border-default: #3a352c;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

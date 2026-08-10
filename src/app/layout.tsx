@@ -39,10 +39,24 @@ export const metadata: Metadata = {
   },
 }
 
+const THEME_INIT_SCRIPT = `
+  try {
+    var theme = localStorage.getItem('theme');
+    if (theme === 'light' || theme === 'dark') {
+      document.documentElement.setAttribute('data-theme', theme);
+    }
+  } catch (e) {}
+`
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="id" className={`${cormorant.variable} ${inter.variable} h-full antialiased`}>
+    <html
+      lang="id"
+      suppressHydrationWarning
+      className={`${cormorant.variable} ${inter.variable} h-full antialiased`}
+    >
       <body className="min-h-full flex flex-col bg-[var(--color-bg)] text-[var(--color-fg)] font-sans">
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         {children}
       </body>
     </html>

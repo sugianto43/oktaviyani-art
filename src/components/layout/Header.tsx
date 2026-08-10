@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { MobileMenu } from './MobileMenu'
 import { Container } from './Container'
+import { ThemeToggle } from '@/components/ui'
 
 const NAV_LINKS = [
   { href: '/works', label: 'Works' },
@@ -27,34 +28,40 @@ export function Header() {
             </Link>
 
             {/* Desktop nav */}
-            <nav aria-label="Primary navigation" className="hidden md:block">
-              <ul className="flex items-center gap-10">
-                {NAV_LINKS.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="font-sans text-sm tracking-widest uppercase text-[var(--color-muted-fg)] hover:text-[var(--color-fg)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-fg)]"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
+            <div className="hidden items-center gap-2 md:flex">
+              <nav aria-label="Primary navigation">
+                <ul className="flex items-center gap-10">
+                  {NAV_LINKS.map((link) => (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        className="font-sans text-sm tracking-widest uppercase text-[var(--color-muted-fg)] hover:text-[var(--color-fg)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-fg)]"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+              <ThemeToggle />
+            </div>
 
-            {/* Mobile menu trigger */}
-            <button
-              className="flex h-11 w-11 items-center justify-center rounded-full md:hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-fg)]"
-              aria-label="Open menu"
-              aria-expanded={menuOpen}
-              aria-controls="mobile-menu"
-              onClick={() => setMenuOpen(true)}
-            >
-              <span aria-hidden="true" className="flex flex-col gap-1.5">
-                <span className="block h-px w-5 bg-[var(--color-fg)]" />
-                <span className="block h-px w-5 bg-[var(--color-fg)]" />
-              </span>
-            </button>
+            {/* Mobile trigger row */}
+            <div className="flex items-center gap-1 md:hidden">
+              <ThemeToggle />
+              <button
+                className="flex h-11 w-11 items-center justify-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-fg)]"
+                aria-label="Open menu"
+                aria-expanded={menuOpen}
+                aria-controls="mobile-menu"
+                onClick={() => setMenuOpen(true)}
+              >
+                <span aria-hidden="true" className="flex flex-col gap-1.5">
+                  <span className="block h-px w-5 bg-[var(--color-fg)]" />
+                  <span className="block h-px w-5 bg-[var(--color-fg)]" />
+                </span>
+              </button>
+            </div>
           </div>
         </Container>
       </header>
