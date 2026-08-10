@@ -21,6 +21,8 @@ export interface Artwork {
   description: string
   status: ArtworkStatus
   featured: boolean
+  /** Dominant color extracted from the artwork image, for per-artwork accent styling. */
+  accentColor?: string
 }
 
 export interface Artist {

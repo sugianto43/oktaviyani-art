@@ -94,8 +94,15 @@ export default async function ArtworkPage({ params }: ArtworkPageProps) {
             />
           </ArtworkLightbox>
 
-          <div className="max-w-md">
-            <h1 className="font-serif text-4xl font-light tracking-tight md:text-6xl">
+          <div
+            className="max-w-md"
+            style={
+              artwork.accentColor
+                ? ({ '--artwork-accent': artwork.accentColor } as React.CSSProperties)
+                : undefined
+            }
+          >
+            <h1 className="inline-block border-b-4 border-[var(--artwork-accent,var(--color-fg))] font-serif text-4xl font-light tracking-tight md:text-6xl">
               {artwork.title}
             </h1>
             <p className="mt-2 font-sans text-sm text-[var(--color-muted-fg)]">
@@ -108,7 +115,15 @@ export default async function ArtworkPage({ params }: ArtworkPageProps) {
               {artwork.description}
             </p>
 
-            <Button href={`/contact?artwork=${artwork.slug}`} className="mt-10 inline-block">
+            <Button
+              href={`/contact?artwork=${artwork.slug}`}
+              className="mt-10 inline-block"
+              style={
+                artwork.accentColor
+                  ? ({ '--btn-accent': artwork.accentColor } as React.CSSProperties)
+                  : undefined
+              }
+            >
               Inquire
             </Button>
           </div>

@@ -3,7 +3,7 @@ const artworkImageProjection = `
     ...,
     asset->{
       url,
-      metadata{dimensions, lqip}
+      metadata{dimensions, lqip, palette}
     }
   }
 `

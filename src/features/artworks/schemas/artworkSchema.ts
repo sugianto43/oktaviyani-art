@@ -19,6 +19,11 @@ export const artworkSchema = z
         metadata: z.object({
           dimensions: z.object({ width: z.number(), height: z.number() }),
           lqip: z.string().nullish(),
+          palette: z
+            .object({
+              dominant: z.object({ background: z.string() }).nullish(),
+            })
+            .nullish(),
         }),
       }),
     }),
@@ -43,6 +48,7 @@ export const artworkSchema = z
     description: raw.description,
     status: raw.status,
     featured: raw.featured,
+    accentColor: raw.image.asset.metadata.palette?.dominant?.background ?? undefined,
   }))
 
 export const artworksSchema = z.array(artworkSchema)
