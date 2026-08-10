@@ -24,6 +24,30 @@ const SECURITY_HEADERS = [
   { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
 ]
 
+// Studio needs to talk to Sanity's API/CDN/websocket hosts, which the
+// site-wide CSP above (connect-src 'self') blocks.
+const STUDIO_CSP = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline'",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: https://cdn.sanity.io",
+  "font-src 'self' data:",
+  "connect-src 'self' https://*.api.sanity.io https://*.sanity.io wss://*.api.sanity.io",
+  "frame-ancestors 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+].join('; ')
+
+const STUDIO_SECURITY_HEADERS = [
+  { key: 'Content-Security-Policy', value: STUDIO_CSP },
+  {
+    key: 'Strict-Transport-Security',
+    value: 'max-age=63072000; includeSubDomains; preload',
+  },
+  { key: 'X-Content-Type-Options', value: 'nosniff' },
+  { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+]
+
 const nextConfig: NextConfig = {
   // Sanity Studio (embedded at /studio) pulls in `swr`, whose react-server
   // export condition trips Next's RSC bundling. Run it via native require
@@ -32,7 +56,11 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        source: '/:path*',
+        source: '/studio/:path*',
+        headers: STUDIO_SECURITY_HEADERS,
+      },
+      {
+        source: '/((?!studio).*)',
         headers: SECURITY_HEADERS,
       },
     ]
