@@ -1,8 +1,10 @@
 import Link from 'next/link'
 import { Container } from './Container'
+import { artistService } from '@/features/artist/services/artistService'
 
-export function Footer() {
+export async function Footer() {
   const year = new Date().getFullYear()
+  const artist = await artistService.get()
 
   return (
     <footer className="mt-auto border-t border-[var(--color-border-default)] py-10">
@@ -32,6 +34,16 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <a
+                  href={artist.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-sans text-sm tracking-widest uppercase text-[var(--color-muted-fg)] hover:text-[var(--color-fg)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-fg)]"
+                >
+                  Instagram
+                </a>
+              </li>
             </ul>
           </nav>
 

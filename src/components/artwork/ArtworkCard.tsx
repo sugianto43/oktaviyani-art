@@ -2,12 +2,19 @@ import Link from 'next/link'
 import type { Artwork } from '@/types'
 import { ArtworkImage } from './ArtworkImage'
 
+const STATUS_LABEL: Partial<Record<Artwork['status'], string>> = {
+  sold: 'Sold',
+  'not-for-sale': 'Not for Sale',
+}
+
 interface ArtworkCardProps {
   artwork: Artwork
   sizes?: string
 }
 
 export function ArtworkCard({ artwork, sizes }: ArtworkCardProps) {
+  const statusLabel = STATUS_LABEL[artwork.status]
+
   return (
     <Link
       href={`/works/${artwork.slug}`}
@@ -34,7 +41,14 @@ export function ArtworkCard({ artwork, sizes }: ArtworkCardProps) {
           {artwork.title}
         </h3>
         <p className="font-sans text-sm text-[var(--color-muted-fg)]">{artwork.medium}</p>
-        <p className="font-sans text-sm text-[var(--color-muted-fg)]">{artwork.year}</p>
+        <div className="flex items-center gap-2">
+          <p className="font-sans text-sm text-[var(--color-muted-fg)]">{artwork.year}</p>
+          {statusLabel && (
+            <span className="font-sans text-xs tracking-widest uppercase text-[var(--color-muted-fg)]">
+              &middot; {statusLabel}
+            </span>
+          )}
+        </div>
       </div>
     </Link>
   )

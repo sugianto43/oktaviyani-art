@@ -3,7 +3,7 @@ import type { ArtworkCategory } from '@/types'
 import { artworkService } from '@/features/artworks/services/artworkService'
 import { Container } from '@/components/layout'
 import { GalleryFilter } from './_components/GalleryFilter'
-import { ArtworkGrid } from './_components/ArtworkGrid'
+import { ArtworkGridInfinite } from './_components/ArtworkGridInfinite'
 import { buildMetadata } from '@/lib/seo/metadata'
 import { JsonLd } from '@/lib/seo/JsonLd'
 import { siteUrl } from '@/lib/seo/site'
@@ -11,6 +11,7 @@ import { siteUrl } from '@/lib/seo/site'
 export const dynamic = 'force-dynamic'
 
 const VALID_CATEGORIES: ArtworkCategory[] = ['painting', 'portrait', 'abstract', 'landscape']
+const PAGE_SIZE = 12
 
 function parseCategory(raw: unknown): ArtworkCategory | 'all' {
   if (typeof raw === 'string' && VALID_CATEGORIES.includes(raw as ArtworkCategory)) {
@@ -38,8 +39,9 @@ export async function generateMetadata({ searchParams }: WorksPageProps): Promis
 export default async function WorksPage({ searchParams }: WorksPageProps) {
   const { category } = await searchParams
   const current = parseCategory(category)
+  const resolvedCategory = current === 'all' ? undefined : current
 
-  const artworks = await artworkService.list(current === 'all' ? undefined : current)
+  const { artworks, total } = await artworkService.listPage(1, PAGE_SIZE, resolvedCategory)
 
   return (
     <section aria-labelledby="works-heading" className="py-16 md:py-24">
@@ -63,7 +65,13 @@ export default async function WorksPage({ searchParams }: WorksPageProps) {
           <GalleryFilter current={current} />
         </div>
 
-        <ArtworkGrid artworks={artworks} />
+        <ArtworkGridInfinite
+          key={current}
+          initialArtworks={artworks}
+          total={total}
+          pageSize={PAGE_SIZE}
+          category={resolvedCategory}
+        />
       </Container>
     </section>
   )
