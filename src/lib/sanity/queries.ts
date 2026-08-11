@@ -26,6 +26,14 @@ export const artworksQuery = `*[_type == "artwork"] | order(year desc) ${artwork
 
 export const artworksByCategoryQuery = `*[_type == "artwork" && category == $category] | order(year desc) ${artworkProjection}`
 
+export const artworksPageQuery = `*[_type == "artwork"] | order(year desc) [$start...$end] ${artworkProjection}`
+
+export const artworksByCategoryPageQuery = `*[_type == "artwork" && category == $category] | order(year desc) [$start...$end] ${artworkProjection}`
+
+export const artworksCountQuery = `count(*[_type == "artwork"])`
+
+export const artworksByCategoryCountQuery = `count(*[_type == "artwork" && category == $category])`
+
 export const artworkBySlugQuery = `*[_type == "artwork" && slug.current == $slug][0] ${artworkProjection}`
 
 export const featuredArtworksQuery = `*[_type == "artwork" && featured == true] | order(year desc) [0...$limit] ${artworkProjection}`

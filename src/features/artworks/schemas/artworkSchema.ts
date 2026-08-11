@@ -52,3 +52,26 @@ export const artworkSchema = z
   }))
 
 export const artworksSchema = z.array(artworkSchema)
+
+// Validates an already-transformed Artwork, e.g. a JSON response from our own API route.
+export const artworkDtoSchema = z.object({
+  id: z.string(),
+  slug: z.string(),
+  title: z.string(),
+  year: z.number(),
+  category: z.enum(CATEGORIES),
+  medium: z.string(),
+  dimensions: z.string(),
+  image: z.object({
+    src: z.string(),
+    width: z.number(),
+    height: z.number(),
+    blurDataUrl: z.string().optional(),
+  }),
+  description: z.string(),
+  status: z.enum(STATUSES),
+  featured: z.boolean(),
+  accentColor: z.string().optional(),
+}) satisfies z.ZodType<Artwork>
+
+export const artworksDtoSchema = z.array(artworkDtoSchema)
